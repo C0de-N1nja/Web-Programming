@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Users</title>
+  <link rel="stylesheet" href="/stylesheets/allusers.css">
+</head>
+<body>
+  <div class="container">
+    <h1>All Users</h1>
+
+    <!-- 🔙 Go back to form button -->
+    <form action="/form" method="GET" style="margin-bottom: 20px;">
+      <button type="submit" class="back-btn">Go Back to Form</button>
+    </form>
+
+    <!-- 🔍 Search Bar -->
+    <form action="/search" method="GET" style="margin-bottom: 20px;">
+      <input type="text" name="name" placeholder="Search by name or email" required>
+      <button type="submit" class="search-btn">Search</button>
+    </form>
+
+    <!-- 🧍 Single user found -->
+    <% if(users && users.length === 1) { %>
+      <div class="user-card">
+        <p><strong>Name:</strong> <%= users[0].name %></p>
+        <p><strong>Email:</strong> <%= users[0].email %></p>
+        <p><strong>Message:</strong> <%= users[0].message %></p>
+        
+        <!-- Delete button -->
+        <form action="/delete" method="POST" style="display: inline;">
+          <input type="hidden" name="email" value="<%= users[0].email %>">
+          <button type="submit" class="delete-btn">Delete</button>
+        </form>
+
+        <!-- Edit button -->
+        <form action="/edit" method="GET" style="display: inline;">
+          <input type="hidden" name="email" value="<%= users[0].email %>">
+          <button type="submit" class="edit-btn">Edit</button>
+        </form>
+      </div>
+
+    <!-- 👥 Multiple users -->
+    <% } else if(users && users.length > 1) { %>
+      <% users.forEach(function(user){ %>
+        <div class="user-card">
+          <p><strong>Name:</strong> <%= user.name %></p>
+          <p><strong>Email:</strong> <%= user.email %></p>
+          <p><strong>Message:</strong> <%= user.message %></p>
+
+          <!-- Delete button -->
+          <form action="/delete" method="POST" style="display: inline;">
+            <input type="hidden" name="email" value="<%= user.email %>">
+            <button type="submit" class="delete-btn">Delete</button>
+          </form>
+
+          <!-- Edit button -->
+          <form action="/edit" method="GET" style="display: inline;">
+            <input type="hidden" name="email" value="<%= user.email %>">
+            <button type="submit" class="edit-btn">Edit</button>
+          </form>
+        </div>
+      <% }) %>
+
+    <!-- 🚫 No users -->
+    <% } else { %>
+      <p>No users found.</p>
+    <% } %>
+
+  </div>
+</body>
+</html>
