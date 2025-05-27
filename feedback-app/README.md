@@ -1,74 +1,86 @@
 # Feedback App
 
-A simple feedback application built using Node.js, Express, MongoDB, and EJS. Follows the MVC architecture.
+A simple feedback collection app built using Node.js, Express.js, MongoDB, and EJS — following the MVC pattern without using EJS partials.
 
-## Features
+---
 
-- Submit feedback via form
-- View all feedback
-- Edit and update feedback
-- Delete feedback
-- Search feedback by name
-
-## Tech Stack
-
-- Backend: Node.js, Express.js
-- Frontend: HTML, CSS, EJS
-- Database: MongoDB
-- Architecture: MVC
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 
 feedback-app/
 ├── controllers/
-│   └── userController.js
+│   └── userController.js        # All controller functions for feedback operations
+│
 ├── models/
-│   └── userModel.js
+│   └── userModel.js             # Mongoose schema/model definition
+│
 ├── routes/
-│   └── userRoutes.js
-├── views/
-│   ├── form.ejs
-│   ├── allusers.ejs
-│   └── edituser.ejs
+│   └── userRoutes.js            # Route definitions (GET, POST handlers)
+│
 ├── public/
-│   └── styles.css
-├── index.js
+│   └── stylesheets/
+│       ├── allusers.css         # Styling for allusers.ejs
+│       ├── edituser.css         # Styling for edituser.ejs
+│       └── form.css             # Styling for form.ejs
+│
+├── views/
+│   ├── allusers.ejs             # View to display all feedback users
+│   ├── edituser.ejs             # Form to edit feedback entry
+│   └── form.ejs                 # Form to submit feedback
+│
+├── index.js                     # Main application entry point
 ├── package.json
 └── README.md
 
 ````
 
-## Getting Started
+---
+
+## 🚀 Getting Started
 
 1. Install dependencies:
+
    ```bash
    npm install
 ````
 
-2. Start MongoDB and run the app:
+2. Make sure MongoDB is running (localhost, port 27017).
+
+3. Start the app:
 
    ```bash
    nodemon
    ```
 
-3. Open in browser:
+4. Open in browser:
 
    ```
    http://localhost:3000/form
    ```
 
-## Routes Summary
+---
 
-| Route            | Method | Description             |
-| ---------------- | ------ | ----------------------- |
-| /form            | GET    | Show feedback form      |
-| /submit          | POST   | Submit feedback         |
-| /users           | GET    | View all feedback       |
-| /edit?email=...  | GET    | Edit feedback by email  |
-| /update          | POST   | Update feedback         |
-| /delete          | POST   | Delete feedback         |
-| /search?name=... | GET    | Search feedback by name |
+## 📌 Routes Summary
 
-```
+| Route            | Method | Description               |
+| ---------------- | ------ | ------------------------- |
+| /form            | GET    | Show feedback form        |
+| /submit          | POST   | Submit feedback           |
+| /users           | GET    | View all feedback entries |
+| /edit?email=...  | GET    | Edit feedback by email    |
+| /update          | POST   | Update feedback entry     |
+| /delete          | POST   | Delete feedback by email  |
+| /search?name=... | GET    | Search feedback by name   |
+
+---
+
+## 🛠️ Tech Stack
+
+* Node.js
+* Express.js
+* MongoDB with Mongoose
+* EJS Templating (No partials)
+* Vanilla CSS (one per view)
+
+---
