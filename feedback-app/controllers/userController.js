@@ -1,70 +1,52 @@
-const userModel = require("../models/userModel")
+const userModel = require("../models/userModel");
 
-exports.getform = ("/form", function(req, res){
-    res.render("form")
-})
+exports.getForm = function(req, res){
+    res.render("form");
+};
 
-exports.submitform = ("/submit", async function(req, res){
-    const userCreated = await userModel.create({
+exports.submitForm = async function(req, res){
+    await userModel.create({
         name: req.body.name,
         email: req.body.email,
         message: req.body.message
-    })
+    });
+    res.redirect("/form");
+};
 
-    res.redirect("/form")
-})
+exports.getUsers = async function(req, res){
+    const allUsers = await userModel.find();
+    res.render("allusers", { users: allUsers });
+};
 
-exports.allusers = ("/users", async function(req, res){
-    const allUsers = await userModel.find()
-
-    res.render("allusers", {users: allUsers})
-    // console.log(allUsers)
-})
-
-exports.deleteuser = ("/delete", async function(req, res){
-    const deletedUser = await userModel.findOneAndDelete({
+exports.deleteUser = async function(req, res){
+    await userModel.findOneAndDelete({
         email: req.body.email
-    })
+    });
+    res.redirect("/users");
+};
 
-    res.redirect("/users")
-})
-
-exports.searchuser = ("/search", async function(req, res){
+exports.searchUser = async function(req, res){
     const userSearched = await userModel.find({
         name: req.query.name
-    })
+    });
+    res.render("allusers", { users: userSearched });
+};
 
-    // res.render("allusers", {users: userSearched ? [userSearched] : []})
-    res.render("allusers", {users: userSearched})
-
-})
-
-exports.edituser = ("/edit", async function(req, res) {
-    const editedUser = await userModel.findOne({ 
+exports.getEditUser = async function(req, res){
+    const editedUser = await userModel.findOne({
         email: req.query.email
     });
+    res.render("edituser", { user: editedUser });
+}
 
-    if (!editedUser) {
-        return res.send("User not found");
-    }
-
-    res.render("edituser", {user: editedUser});
-})
-
-exports.updateuser = ("/update", async function(req, res) {
-    const editedUser = await userModel.findOneAndUpdate({
+exports.updateUser = async function(req, res){
+    await userModel.findOneAndUpdate({
         email: req.body.originalEmail
     },
-    
-    {   
-        name: req.body.name,
-        email: req.body.email,
-        message: req.body.message
-    });
-
-    if (!editedUser) {
-        return res.send("User not found or update failed.");
-    }
-
+    {
+        name: req.body.name, 
+        email: req.body.email, 
+        message: req.body.message 
+    })
     res.redirect("/users");
-});
+}
