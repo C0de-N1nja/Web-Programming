@@ -70,3 +70,5 @@ feedback-app/
 | /update          | POST   | Update feedback         |
 | /delete          | POST   | Delete feedback         |
 | /search?name=... | GET    | Search feedback by name |
+
+```
